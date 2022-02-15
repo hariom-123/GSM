@@ -66,25 +66,45 @@ void Send_AT_Command(hgsm* atcommand)
 
 void Extract_Date_Time()
 {
-	int i = 0;
 
-	// Taking i to the starting character of date
-	while(gsm_main.gsm_rx_data[i] != '\"'){
-		i++;
-	}
+	// Taking ptr to the starting character of date i.e. (1 more than ")
+	char *start = jump_to_character(gsm_main.gsm_rx_data,'"');
+	start++;
 
-	int j;
+	// jump to end char of date (,)
+	char *end = jump_to_character(start,',');
 
 	// Extracting date
 
-	for(j = i+1; gsm_main.gsm_rx_data[j] != ','; j++){
-		rtc.date[j-(i+1)] = gsm_main.gsm_rx_data[j];
-	}
+	extract_substring(rtc.date,start,end);
+
+	// Taking ptr to the starting character of time i.e. (which is 1 step more from ,)
+	start = ++end;
+
+	// jump to end char of time (")
+	end = jump_to_character(start,'"');
 
 	// Extracting time
+	extract_substring(rtc.time,start,end);
 
-	for(i = j+1; gsm_main.gsm_rx_data[i] != '\"'; i++){
-		rtc.time[i-(j+1)] = gsm_main.gsm_rx_data[i];
+}
+
+char* jump_to_character(char* ptr,char ch){
+
+	while(*ptr != ch)
+		ptr++;
+
+	return ptr;
+}
+
+//including ptr1 & excluding ptr2
+void extract_substring(char *dest_buffer,char *ptr1,char *ptr2){
+
+	while(ptr1 != ptr2)
+	{
+		(*dest_buffer++) = (*ptr1++);
+//		dest_buffer++;
+//		ptr1++;
 	}
 }
 

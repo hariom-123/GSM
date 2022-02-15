@@ -120,7 +120,7 @@ HAL_UART_Receive_IT(&huart3,&rx_buffer,1);
 // AT COMMANDS
 Send_AT_Command(&Echo_OFF);
 //Send_AT_Command(&Echo_ON);
-//Send_AT_Command(&SIM_NO);
+Send_AT_Command(&SIM_NO);
 Send_AT_Command(&R_TIME);
 Extract_Date_Time();
 //Send_AT_Command(&IMEI);

@@ -45,6 +45,10 @@ void Send_AT_Command(hgsm* );
 
 // Extract date and time from gsm_rx_data
 void Extract_Date_Time();
+// for getting a pointer to specified character
+char* jump_to_character(char*,char);
+// for extracting a substring if start and end pointers of source buffer are given
+void extract_substring(char *dest_buffer,char *ptr1,char *ptr2);
 
 
 #endif /* SRC_GSM_H_ */
